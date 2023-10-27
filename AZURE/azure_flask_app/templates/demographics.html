@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="static\styles.css">
+    <title> MySQL Patient Demographic Table</title>
+</head>
+
+<body>
+    <h1> MySQL Patient Demographic Table</h1>
+    <table>
+        <thead>
+            <tr>
+               <th> Demographic ID </th>
+               <th> Patient ID </th>
+               <th> First Name </th> 
+               <th> Last Name </th>
+               <th> Date of Birth </th>
+               <th> Address </th>
+               <th> Phone Number </th>
+               <th> Email </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for demographics in data2 %}
+            <tr>
+                <td> {{demographics.demographic_id}} </td>
+                <td> {{demographics.patient_id}} </td>
+                <td> {{demographics.first_name}} </td>
+                <td> {{demographics.last_name}} </td>
+                <td> {{demographics.date_of_birth}} </td>
+                <td> {{demographics.address}} </td>
+                <td> {{demographics.phone_number}} </td>
+                <td> {{demographics.email}} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html

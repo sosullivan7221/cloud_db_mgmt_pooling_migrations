@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="static\styles.css">
+    <title> MySQL Patient Table</title>
+</head>
+
+<body>
+    <h1> MySQL Patient Table</h1>
+    <table>
+        <thead>
+            <tr>
+               <th> Patient_ID </th>
+               <th> MRN </th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for patients in data1 %}
+            <tr>
+                <td> {{patients.patient_id}} </td>
+                <td> {{patients.MRN}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
