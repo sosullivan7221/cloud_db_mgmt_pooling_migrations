@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="static\styles.css">
+    <title> MySQL Patient Medication Table</title>
+</head>
+
+<body>
+    <h1> MySQL Patient Medication Table</h1>
+    <table>
+        <thead>
+            <tr>
+               <th> Medication_ID </th>
+               <th> Medication_Name </th>
+               <th> Medication_Dosage </th> 
+               <th> Patient_ID </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medication in data2 %}
+            <tr>
+                <td> {{medication.medication_ID}} </td>
+                <td> {{medication.medication_name}}</td>
+                <td> {{medication.medication_dosage}}</td>
+                <td> {{medication.patient_ID}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
