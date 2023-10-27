@@ -1,37 +1,35 @@
 from sqlalchemy import create_engine, inspect, Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, declarative_base
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+AZURE_URL = os.getenv("AZURE_URL")
 
 Base = declarative_base()
 
-class Patient(Base):
-    __tablename__ = 'patients'
-
+class Doctor(Base):
+    __tablename__ = 'doctor'
     id = Column(Integer, primary_key=True)
+    MRN = Column(String(50), nullable=False)
+    specialty = Column(String(50), nullable=False)
+    
+    records = relationship('DoctorDemographic', back_populates='doctor')
+
+class DoctorDemographic(Base):
+    __tablename__ = 'doctor_demographics'
+    id = Column(Integer, primary_key=True)
+    doctor_id = Column(Integer, ForeignKey('doctor.id'))
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
-    date_of_birth = Column(Date, nullable=False)
-    gender = Column(String(10), nullable=False)
-    contact_number = Column(String(15))
 
-    records = relationship('MedicalRecord', back_populates='patient')
+    doctor = relationship('Doctor', back_populates='records')
 
-class MedicalRecord(Base):
-    __tablename__ = 'medical_records'
-
-    id = Column(Integer, primary_key=True)
-    patient_id = Column(Integer, ForeignKey('patients.id'), nullable=False)
-    diagnosis = Column(String(100), nullable=False)
-    treatment = Column(String(200))
-    admission_date = Column(Date, nullable=False)
-    discharge_date = Column(Date)
-
-    patient = relationship('Patient', back_populates='records')
-
-# Connection string
-conn_string = (
-    f"mysql+pymysql://sean504:testpassword123!@migrations-test-sean.mysql.database.azure.com/sean")
+conn_string = (f"{AZURE_URL}")
 engine = create_engine(conn_string)
 
 inspector = inspect(engine)
 inspector.get_table_names()
+
+Base.metadata.create_all(engine)

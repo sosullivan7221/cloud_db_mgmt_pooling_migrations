@@ -4,9 +4,14 @@ import os
 from dotenv import load_dotenv 
 from flask import Flask, render_template, request
 
+load_dotenv()
+
+AZURE_URL = os.getenv("AZURE_URL")
+
+
 # Connection string
 conn_string = (
-    f"mysql+pymysql://sean504:testpassword123!@migrations-test-sean.mysql.database.azure.com/sean")
+    f"{AZURE_URL}") 
 engine = create_engine(conn_string)
 
 app = Flask(__name__)
